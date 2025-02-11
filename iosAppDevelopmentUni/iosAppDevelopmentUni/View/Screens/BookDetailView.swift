@@ -22,3 +22,7 @@ struct BookDetailView: View {
         .padding()
     }
 }
+
+#Preview {
+    BookDetailView(book: .init(title: "Test", author: "Test"))
+}

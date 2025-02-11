@@ -22,3 +22,8 @@ struct BottomNavBar: View {
         )
     }
 }
+
+#Preview {
+    BottomNavBar()
+        .background(Color.black)
+}

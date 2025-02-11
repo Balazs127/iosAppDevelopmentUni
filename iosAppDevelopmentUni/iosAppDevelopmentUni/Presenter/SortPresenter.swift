@@ -7,17 +7,29 @@
 
 import SwiftUI
 
+enum SortOption: String, CaseIterable, Identifiable {
+    case titleAscending = "Title ↑"
+    case titleDescending = "Title ↓"
+    case authorAscending = "Author ↑"
+    case authorDescending = "Author ↓"
+    
+    var id: String { rawValue }
+}
+
 class SortPresenter: ObservableObject {
-    @Published var selectedSortOption: SortOption = .title
-    @Published var sortAscending: Bool = true
+    @Published var selectedSortOption: SortOption = .titleAscending
 
     func sortBooks(books: [Book]) -> [Book] {
         books.sorted { book1, book2 in
             switch selectedSortOption {
-            case .title:
-                return sortAscending ? (book1.title < book2.title) : (book1.title > book2.title)
-            case .author:
-                return sortAscending ? (book1.author < book2.author) : (book1.author > book2.author)
+            case .titleAscending:
+                return book1.title < book2.title
+            case .titleDescending:
+                return book1.title > book2.title
+            case .authorAscending:
+                return book1.author < book2.author
+            case .authorDescending:
+                return book1.author > book2.author
             }
         }
     }

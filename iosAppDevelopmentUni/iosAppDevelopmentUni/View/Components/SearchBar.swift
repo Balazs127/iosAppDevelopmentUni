@@ -20,3 +20,11 @@ struct SearchBar: View {
             .padding(.vertical, 5)
     }
 }
+
+#Preview {
+    @State @Previewable var searchText = "" // ✅ Provide a binding for preview
+
+    return SearchBar(text: $searchText)
+        .padding()
+        .background(Color.black)
+}

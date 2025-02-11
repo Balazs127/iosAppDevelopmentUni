@@ -23,3 +23,9 @@ struct BottomNavItem: View {
         .frame(maxWidth: .infinity)
     }
 }
+
+#Preview {
+    BottomNavItem(icon: "house.fill", label: "Home")
+        .padding()
+        .background(Color.black)
+}

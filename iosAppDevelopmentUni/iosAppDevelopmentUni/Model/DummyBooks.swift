@@ -14,3 +14,7 @@ let sampleBooks: [Book] = [
     Book(title: "Animal Farm", author: "George Orwell"),
     Book(title: "The Great Gatsby", author: "F. Scott Fitzgerald")
 ]
+
+func getSampleBooks() -> [Book] {
+    return sampleBooks
+}

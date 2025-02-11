@@ -30,3 +30,9 @@ struct BookRowView: View {
         .cornerRadius(12)
     }
 }
+
+#Preview {
+    BookRowView(book: Book(title: "1984", author: "George Orwell"))
+        .padding()
+        .background(Color.black)
+}
