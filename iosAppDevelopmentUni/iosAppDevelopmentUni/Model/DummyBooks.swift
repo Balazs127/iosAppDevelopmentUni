@@ -15,7 +15,8 @@ let sampleBooks: [Book] = [
         rating: 4.5,
         genre: "Science Fiction",
         totalPages: 311,
-        pagesRead: 0
+        pagesRead: 0,
+        userReview: ""
     ),
     Book(
         title: "1984",
@@ -24,7 +25,8 @@ let sampleBooks: [Book] = [
         rating: 4.8,
         genre: "Dystopian Fiction",
         totalPages: 328,
-        pagesRead: 0
+        pagesRead: 0,
+        userReview: ""
     ),
     Book(
         title: "Fahrenheit 451",
@@ -33,7 +35,8 @@ let sampleBooks: [Book] = [
         rating: 4.3,
         genre: "Dystopian Fiction",
         totalPages: 256,
-        pagesRead: 0
+        pagesRead: 0,
+        userReview: ""
     ),
     Book(
         title: "Animal Farm",
@@ -42,7 +45,8 @@ let sampleBooks: [Book] = [
         rating: 4.6,
         genre: "Political Satire",
         totalPages: 141,
-        pagesRead: 0
+        pagesRead: 0,
+        userReview: ""
     ),
     Book(
         title: "The Great Gatsby",
@@ -51,7 +55,8 @@ let sampleBooks: [Book] = [
         rating: 4.4,
         genre: "Literary Fiction",
         totalPages: 180,
-        pagesRead: 0
+        pagesRead: 0,
+        userReview: ""
     )
 ]
 

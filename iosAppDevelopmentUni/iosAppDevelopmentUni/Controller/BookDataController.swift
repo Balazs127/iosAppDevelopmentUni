@@ -56,7 +56,8 @@ class BookDataController {
             isSaved: isSaved,
             genre: genre,
             totalPages: totalPages,
-            pagesRead: 0
+            pagesRead: 0,
+            userReview: ""
         )
         modelContext.insert(newBook)
         saveContext()

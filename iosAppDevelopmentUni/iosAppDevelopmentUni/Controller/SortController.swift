@@ -1,5 +1,5 @@
 //
-//  SortPresenter.swift
+//  SortController.swift
 //  iosAppDevelopmentUni
 //
 //  Created by Herényi Orsolya on 07/02/2025.
@@ -21,15 +21,6 @@ enum SortOption: CaseIterable, Identifiable {
         }
     }
     
-    // var icon: String {
-    //     switch self {
-    //     case .titleAscending: return "text.alignleft"
-    //     case .titleDescending: return "text.alignright"
-    //     case .authorAscending: return "person.fill"
-    //     case .authorDescending: return "person.fill.turn.right"
-    //     }
-    // }
-    
     var icon: String {
         switch self {
         case .titleAscending: return "arrow.up"
@@ -47,7 +38,7 @@ enum SortOption: CaseIterable, Identifiable {
     }
 }
 
-class SortPresenter: ObservableObject {
+class SortController: ObservableObject {
     @Published var selectedSortOption: SortOption = .titleAscending
 
     func sortBooks(books: [Book]) -> [Book] {

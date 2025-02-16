@@ -8,10 +8,6 @@
 import SwiftUI
 import SwiftData
 
-enum Field {
-    case title, author, genre, description, pages, pagesRead
-}
-
 struct AddBookView: View {
     @Environment(\.dismiss) var dismiss
     @State private var title: String = ""

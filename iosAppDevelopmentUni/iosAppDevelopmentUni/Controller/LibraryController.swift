@@ -1,13 +1,14 @@
 //
-//  LibraryPresenter.swift
+//  LibraryController.swift
 //  iosAppDevelopmentUni
 //
 //  Created by Herényi Orsolya on 07/02/2025.
 //
+
 import SwiftUI
 import SwiftData
 
-class LibraryPresenter: ObservableObject {
+class LibraryController: ObservableObject {
     @Published var searchText: String = ""
     @Published var books: [Book] = []
     @Published var sortPresenter = SortPresenter()

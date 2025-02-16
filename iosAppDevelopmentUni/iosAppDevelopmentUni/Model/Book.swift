@@ -29,8 +29,9 @@ class Book {
     var totalPages: Int
     var pagesRead: Int = 0
     var dateAdded: Date
+    var userReview: String = ""
     
-    init(title: String, author: String, bookDescription: String, rating: Double, isSaved: Bool = false, genre: String, totalPages: Int, pagesRead: Int) {
+    init(title: String, author: String, bookDescription: String, rating: Double, isSaved: Bool = false, genre: String, totalPages: Int, pagesRead: Int, userReview: String) {
         self.id = UUID()
         self.title = title
         self.author = author
@@ -41,6 +42,7 @@ class Book {
         self.totalPages = totalPages
         self.pagesRead = pagesRead
         self.dateAdded = Date()
+        self.userReview = userReview
     }
     
 //    func toggleSaved() {

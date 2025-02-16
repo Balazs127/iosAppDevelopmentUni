@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+enum Field {
+    case title, author, genre, description, pages, pagesRead
+}
+
 struct LabeledField: View {
     let label: String
     let placeholder: String

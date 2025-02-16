@@ -13,7 +13,7 @@ struct LibraryView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var allBooks: [Book]
 
-    @StateObject private var libraryPresenter = LibraryPresenter()
+    @StateObject private var controller = LibraryController()
     
     @State private var isShowingAddBook = false
     @State private var isSearchActive = false
@@ -28,21 +28,21 @@ struct LibraryView: View {
                 VStack(spacing: 20) {
                     LibraryHeaderView(
                         isSearchActive: $isSearchActive,
-                        searchText: $libraryPresenter.searchText,
-                        onSearchChange: { libraryPresenter.processBooks(from: allBooks) }
+                        searchText: $controller.searchText,
+                        onSearchChange: { controller.processBooks(from: allBooks) }
                     )
                     
                     SortingToolbarView(
-                        selectedSortOption: $libraryPresenter.sortPresenter.selectedSortOption,
+                        selectedSortOption: $controller.sortPresenter.selectedSortOption,
                         isGridView: $isGridView,
-                        onSortChange: { libraryPresenter.processBooks(from: allBooks) }
+                        onSortChange: { controller.processBooks(from: allBooks) }
                     )
                     
                     BookCollectionView(
-                        books: libraryPresenter.books,
+                        books: controller.books,
                         isGridView: isGridView,
                         onEdit: { book in editingBook = book },
-                        onDelete: { book in libraryPresenter.deleteBook(book) }
+                        onDelete: { book in controller.deleteBook(book) }
                     )
                 }
                 
@@ -54,13 +54,13 @@ struct LibraryView: View {
             .sheet(isPresented: $isShowingAddBook) {
                 AddBookView()
                     .onDisappear {
-                        libraryPresenter.fetchBooks()
-                        libraryPresenter.processBooks(from: allBooks)
+                        controller.fetchBooks()
+                        controller.processBooks(from: allBooks)
                     }
             }
             .onAppear {
-                libraryPresenter.fetchBooks()
-                libraryPresenter.processBooks(from: allBooks)
+                controller.fetchBooks()
+                controller.processBooks(from: allBooks)
                 BookDataController.shared.setModelContext(modelContext)
             }
         }
