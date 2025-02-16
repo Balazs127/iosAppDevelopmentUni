@@ -83,6 +83,7 @@ struct MainTabView: View {
                    .foregroundColor(selectedTab == tab ? .blue : .gray)
                    .scaleEffect(selectedTab == tab ? 1.2 : 1.0)
                    .fontWeight(selectedTab == tab ? .bold : .regular)
+                   .shadow(color: selectedTab == tab ? Color.blue.opacity(0.3) : Color.clear, radius: selectedTab == tab ? 10 : 0, x: 0, y: selectedTab == tab ? 5 : 0)
 
                Text(label)
                    .font(.footnote)

@@ -17,11 +17,11 @@ struct EditBookView: View {
     @State private var genre: String
     @State private var totalPages: String
     @State private var pagesRead: String
-    @State private var isSaved: Bool
-
+    
     let book: Book
     private let dataController = BookDataController.shared
-
+    @FocusState private var focusedField: Field?
+    
     init(book: Book) {
         self.book = book
         _title = State(initialValue: book.title)
@@ -31,53 +31,115 @@ struct EditBookView: View {
         _genre = State(initialValue: book.genre)
         _totalPages = State(initialValue: String(book.totalPages))
         _pagesRead = State(initialValue: String(book.pagesRead))
-        _isSaved = State(initialValue: book.isSaved)
     }
-
+    
     var body: some View {
         NavigationStack {
             Form {
-                Section(header: Text("Book Details")) {
-                    TextField("Title", text: $title)
-                    TextField("Author", text: $author)
-                    TextField("Genre", text: $genre)
-                    TextField("Description", text: $bookDescription, axis: .vertical)
-                        .lineLimit(3...6)
-                }
+                LabeledField(
+                    label: "Title",
+                    placeholder: "Enter book title",
+                    text: $title,
+                    isRequired: true,
+                    focus: $focusedField,
+                    field: .title
+                )
                 
-                Section(header: Text("Book Information")) {
-                    TextField("Total pages", text: $totalPages)
-                        .keyboardType(.numberPad)
-                    TextField("Pages read", text: $pagesRead)
-                        .keyboardType(.numberPad)
-                    
-                    VStack {
-                        Text("Rating: \(rating, specifier: "%.1f")")
-                        Slider(value: $rating, in: 0...5, step: 0.1)
+                LabeledField(
+                    label: "Author",
+                    placeholder: "Enter author name",
+                    text: $author,
+                    focus: $focusedField,
+                    field: .author
+                )
+                
+                LabeledField(
+                    label: "Genre",
+                    placeholder: "Enter genre",
+                    text: $genre,
+                    focus: $focusedField,
+                    field: .genre
+                )
+                
+                LabeledField(
+                    label: "Description",
+                    placeholder: "Enter description",
+                    text: $bookDescription,
+                    axis: .vertical,
+                    focus: $focusedField,
+                    field: .description
+                )
+                
+                LabeledField(
+                    label: "Total Pages",
+                    placeholder: "Enter number of pages",
+                    text: $totalPages,
+                    keyboardType: .numberPad,
+                    focus: $focusedField,
+                    field: .pages
+                )
+                
+                LabeledField(
+                    label: "Pages Read",
+                    placeholder: "Enter pages read",
+                    text: $pagesRead,
+                    keyboardType: .numberPad,
+                    focus: $focusedField,
+                    field: .pagesRead
+                )
+                
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Rating: \(rating, specifier: "%.1f")")
+                        .foregroundColor(.secondary)
+                    HStack {
+                        Text("0 ⭐").foregroundColor(.secondary)
+                        Slider(value: $rating, in: 0...5, step: 0.5)
+                            .tint(.orange)
+                            .padding(.horizontal, 8)
+                        Text("5 ⭐").foregroundColor(.secondary)
                     }
-                    
-                    Toggle("Save to Library", isOn: $isSaved)
                 }
+                .padding(.vertical, 8)
+                .listRowSeparator(.hidden)
                 
                 if let total = Int(totalPages), let read = Int(pagesRead), total > 0 {
-                    Section(header: Text("Reading Progress")) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Reading Progress")
+                            .foregroundColor(.secondary)
                         ProgressView(value: Double(read), total: Double(total))
+                            .tint(.orange)
                         Text("\(Int((Double(read)/Double(total))*100))% Complete")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
                     }
+                    .padding(.vertical, 8)
+                    .listRowSeparator(.hidden)
                 }
             }
             .navigationTitle("Edit Book")
+            .padding(.top, 8)
             .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
                         saveChanges()
                         dismiss()
                     }
+                    .disabled(title.isEmpty)
+                    .foregroundColor(title.isEmpty ? .gray : .blue)
+                    .opacity(title.isEmpty ? 0.5 : 1.0)
+                    .animation(.easeInOut, value: title.isEmpty)
                 }
+            }
+            .onTapGesture { 
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), 
+                    to: nil, from: nil, for: nil)
             }
         }
     }
-
+    
     private func saveChanges() {
         book.title = title
         book.author = author
@@ -86,7 +148,6 @@ struct EditBookView: View {
         book.genre = genre
         book.totalPages = Int(totalPages) ?? 0
         book.pagesRead = Int(pagesRead) ?? 0
-        book.isSaved = isSaved
         
         dataController.saveContext()
         dismiss()

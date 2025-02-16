@@ -8,6 +8,10 @@
 import SwiftUI
 import SwiftData
 
+enum Field {
+    case title, author, genre, description, pages, pagesRead
+}
+
 struct AddBookView: View {
     @Environment(\.dismiss) var dismiss
     @State private var title: String = ""
@@ -16,41 +20,75 @@ struct AddBookView: View {
     @State private var rating: Double = 3.0
     @State private var genre: String = ""
     @State private var totalPages: String = ""
-    @State private var isSaved: Bool = false
-
+    
     private let dataController = BookDataController.shared
+    @FocusState private var focusedField: Field?
     
     var body: some View {
         NavigationStack {
             Form {
-                Section(header: Text("Book Details")) {
-                    TextField("Enter book title", text: $title)
-                        .textInputAutocapitalization(.words)
-                    TextField("Enter author name", text: $author)
-                        .textInputAutocapitalization(.words)
-                    TextField("Enter genre", text: $genre)
-                    TextField("Enter description", text: $bookDescription, axis: .vertical)
-                        .lineLimit(3...6)
-                }
+                LabeledField(
+                    label: "Title",
+                    placeholder: "Enter book title",
+                    text: $title,
+                    isRequired: true,
+                    focus: $focusedField,
+                    field: .title
+                )
                 
-                Section(header: Text("Book Information")) {
-                    TextField("Total pages", text: $totalPages)
-                        .keyboardType(.numberPad)
-                    
-                    VStack {
-                        Text("Rating: \(rating, specifier: "%.1f")")
-                        Slider(value: $rating, in: 0...5, step: 0.1)
+                LabeledField(
+                    label: "Author",
+                    placeholder: "Enter author name",
+                    text: $author,
+                    focus: $focusedField,
+                    field: .author
+                )
+                
+                LabeledField(
+                    label: "Genre",
+                    placeholder: "Enter genre",
+                    text: $genre,
+                    focus: $focusedField,
+                    field: .genre
+                )
+                
+                LabeledField(
+                    label: "Description",
+                    placeholder: "Enter description",
+                    text: $bookDescription,
+                    axis: .vertical,
+                    focus: $focusedField,
+                    field: .description
+                )
+                
+                LabeledField(
+                    label: "Total Pages",
+                    placeholder: "Enter number of pages",
+                    text: $totalPages,
+                    keyboardType: .numberPad,
+                    focus: $focusedField,
+                    field: .pages
+                )
+                
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Rating: \(rating, specifier: "%.1f")")
+                        .foregroundColor(.secondary)
+                    HStack {
+                        Text("0 ⭐").foregroundColor(.secondary)
+                        Slider(value: $rating, in: 0...5, step: 0.5)
+                            .tint(.orange)
+                            .padding(.horizontal, 8)
+                        Text("5 ⭐").foregroundColor(.secondary)
                     }
-                    
-                    Toggle("Save to Library", isOn: $isSaved)
                 }
+                .padding(.vertical, 8)
+                .listRowSeparator(.hidden)
             }
             .navigationTitle("Add New Book")
+            .padding(.top, 8)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
-                        dismiss()
-                    }
+                    Button("Cancel") { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
@@ -58,7 +96,14 @@ struct AddBookView: View {
                         dismiss()
                     }
                     .disabled(title.isEmpty)
+                    .foregroundColor(title.isEmpty ? .gray : .blue)
+                    .opacity(title.isEmpty ? 0.5 : 1.0)
+                    .animation(.easeInOut, value: title.isEmpty)
                 }
+            }
+            .onTapGesture { 
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), 
+                    to: nil, from: nil, for: nil)
             }
         }
     }
@@ -70,7 +115,7 @@ struct AddBookView: View {
             author: author.isEmpty ? "Unknown Author" : author,
             bookDescription: bookDescription,
             rating: rating,
-            isSaved: isSaved,
+            isSaved: true,
             genre: genre,
             totalPages: pages
         )
