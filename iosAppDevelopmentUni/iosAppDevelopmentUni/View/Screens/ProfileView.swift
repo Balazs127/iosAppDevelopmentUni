@@ -1,5 +1,5 @@
 //
-//  HomeView.swift
+//  ProfileView.swift
 //  iosAppDevelopmentUni
 //
 //  Created by Herényi Orsolya on 11/02/2025.
@@ -8,19 +8,15 @@
 
 import SwiftUI
 
-struct HomeView: View {
+struct ProfileView: View {
     var body: some View {
         NavigationStack {
             ZStack {
                 Color.black.ignoresSafeArea()
-                Text("Home")
+                Text("Profile")
                     .foregroundColor(.white)
             }
-            .navigationTitle("Home")
+            .navigationTitle("Profile")
         }
     }
-}
-
-#Preview {
-    HomeView()
 }

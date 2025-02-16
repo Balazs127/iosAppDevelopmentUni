@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  WelcomeView.swift
 //  iosAppDevelopmentUni
 //
 //  Created by Herényi Orsolya on 02/02/2025.
@@ -39,7 +39,9 @@ struct WelcomeView: View {
                 Spacer()
 
                 .navigationDestination(isPresented: $navigateToHome) {
-                    HomeView()
+                    NavigationStack {
+                        MainTabView()       
+                    }
                 }
 
                 Button(action: {

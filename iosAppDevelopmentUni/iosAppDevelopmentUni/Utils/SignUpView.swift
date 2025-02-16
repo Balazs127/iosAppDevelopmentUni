@@ -22,7 +22,7 @@ struct SignUpView: View {
                     .padding()
                 
                     .navigationDestination(isPresented: $navigateToHome) {
-                        HomeView()
+                        LibraryView()
                     }
                 
                 Button(action: {

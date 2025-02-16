@@ -1,26 +1,21 @@
 //
-//  HomeView.swift
+//  FavoritesView.swift
 //  iosAppDevelopmentUni
 //
 //  Created by Herényi Orsolya on 11/02/2025.
 //
-//
 
 import SwiftUI
 
-struct HomeView: View {
+struct FavoritesView: View {
     var body: some View {
         NavigationStack {
             ZStack {
                 Color.black.ignoresSafeArea()
-                Text("Home")
+                Text("Favorites")
                     .foregroundColor(.white)
             }
-            .navigationTitle("Home")
+            .navigationTitle("Favorites")
         }
     }
-}
-
-#Preview {
-    HomeView()
 }

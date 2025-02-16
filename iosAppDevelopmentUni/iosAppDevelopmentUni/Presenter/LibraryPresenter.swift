@@ -1,5 +1,5 @@
 //
-//  HomePresenter.swift
+//  LibraryPresenter.swift
 //  iosAppDevelopmentUni
 //
 //  Created by Herényi Orsolya on 07/02/2025.
@@ -7,7 +7,7 @@
 import SwiftUI
 import SwiftData
 
-class HomePresenter: ObservableObject {
+class LibraryPresenter: ObservableObject {
     @Published var searchText: String = ""
     @Published var books: [Book] = []
     @Published var sortPresenter = SortPresenter()

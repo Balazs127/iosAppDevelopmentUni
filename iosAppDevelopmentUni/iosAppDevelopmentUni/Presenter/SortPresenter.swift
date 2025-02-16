@@ -7,13 +7,44 @@
 
 import SwiftUI
 
-enum SortOption: String, CaseIterable, Identifiable {
-    case titleAscending = "Title ↑"
-    case titleDescending = "Title ↓"
-    case authorAscending = "Author ↑"
-    case authorDescending = "Author ↓"
+enum SortOption: CaseIterable, Identifiable {
+    case titleAscending, titleDescending, authorAscending, authorDescending
     
     var id: String { rawValue }
+    
+    var rawValue: String {
+        switch self {
+        case .titleAscending: return "Title (A-Z)"
+        case .titleDescending: return "Title (Z-A)"
+        case .authorAscending: return "Author (A-Z)"
+        case .authorDescending: return "Author (Z-A)"
+        }
+    }
+    
+    // var icon: String {
+    //     switch self {
+    //     case .titleAscending: return "text.alignleft"
+    //     case .titleDescending: return "text.alignright"
+    //     case .authorAscending: return "person.fill"
+    //     case .authorDescending: return "person.fill.turn.right"
+    //     }
+    // }
+    
+    var icon: String {
+        switch self {
+        case .titleAscending: return "arrow.up"
+        case .titleDescending: return "arrow.down"
+        case .authorAscending: return "person.fill.badge.plus"
+        case .authorDescending: return "person.fill.badge.minus"
+        }
+    }
+
+    var sortIcon: String {
+        switch self {
+        case .titleAscending, .authorAscending: return "chevron.up"
+        case .titleDescending, .authorDescending: return "chevron.down"
+        }
+    }
 }
 
 class SortPresenter: ObservableObject {

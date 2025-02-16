@@ -1,0 +1,100 @@
+//
+//  MainTabView.swift
+//  iosAppDevelopmentUni
+//
+//  Created by Herényi Orsolya on 11/02/2025.
+//
+//
+//
+
+import SwiftUI
+
+struct MainTabView: View {
+   @State private var selectedTab: Tab = .home
+   @State private var keyboardIsVisible = false
+
+   enum Tab {
+       case home, library, favorites, profile
+   }
+
+   var body: some View {
+       ZStack(alignment: .bottom) {
+           Group {
+               switch selectedTab {
+               case .home:
+                   HomeView()
+               case .library:
+                   LibraryView()
+               case .favorites:
+                   FavoritesView()
+               case .profile:
+                   ProfileView()
+               }
+           }
+           .frame(maxWidth: .infinity, maxHeight: .infinity)
+           .padding(.bottom, keyboardIsVisible ? 0 : 60)
+           .background(Color.black.ignoresSafeArea())
+           .navigationBarBackButtonHidden(true)
+
+           if !keyboardIsVisible {
+               tabBar
+           }
+       }
+       .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+           withAnimation {
+               keyboardIsVisible = true
+           }
+       }
+       .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+           withAnimation {
+               keyboardIsVisible = false
+           }
+       }
+   }
+
+   private var tabBar: some View {
+       VStack {
+           Spacer()
+           RoundedRectangle(cornerRadius: 20)
+               .fill(Color(.systemGray6).opacity(0.9))
+               .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: -4)
+               .frame(height: 90)
+               .overlay(
+                   HStack {
+                       navItem(icon: "house.fill", label: "Home", tab: .home)
+                       navItem(icon: "books.vertical.fill", label: "Library", tab: .library)
+                       navItem(icon: "heart.fill", label: "Favorites", tab: .favorites)
+                       navItem(icon: "person.fill", label: "Profile", tab: .profile)
+                   }
+                   .padding(.bottom, 20)
+                   .padding(.horizontal, 10)
+               )
+       }
+       .ignoresSafeArea(edges: .bottom)
+   }
+
+   private func navItem(icon: String, label: String, tab: Tab) -> some View {
+       Button(action: {
+           selectedTab = tab
+       }) {
+           VStack {
+               Image(systemName: icon)
+                   .font(.title2)
+                   .foregroundColor(selectedTab == tab ? .blue : .gray)
+                   .scaleEffect(selectedTab == tab ? 1.2 : 1.0)
+                   .fontWeight(selectedTab == tab ? .bold : .regular)
+
+               Text(label)
+                   .font(.footnote)
+                   .foregroundColor(selectedTab == tab ? .blue : .gray)
+                   .fontWeight(selectedTab == tab ? .bold : .regular)
+           }
+           .frame(maxWidth: .infinity)
+           .animation(.easeInOut(duration: 0.2), value: selectedTab)
+       }
+   }
+}
+
+#Preview {
+    MainTabView()
+}
