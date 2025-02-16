@@ -33,8 +33,24 @@ class LibraryPresenter: ObservableObject {
         books = dataController.fetchBooks()
     }
 
-    func addBook(title: String, author: String) {
-        dataController.addBook(title: title, author: author)
+    func addBook(
+        title: String,
+        author: String,
+        bookDescription: String = "",
+        rating: Double = 3.0,
+        isSaved: Bool = false,
+        genre: String = "",
+        totalPages: Int = 0
+    ) {
+        dataController.addBook(
+            title: title,
+            author: author,
+            bookDescription: bookDescription,
+            rating: rating,
+            isSaved: isSaved,
+            genre: genre,
+            totalPages: totalPages
+        )
         fetchBooks()
     }
 

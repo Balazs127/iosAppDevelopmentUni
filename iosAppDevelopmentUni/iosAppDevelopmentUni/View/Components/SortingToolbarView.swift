@@ -84,27 +84,3 @@ struct SortingToolbarView: View {
     .padding()
     .background(Color.black)
 }
-
-
-#Preview {
-    ZStack {
-        Color.black.edgesIgnoringSafeArea(.all)
-        
-        VStack(spacing: 20) {
-            // Grid view with title ascending
-            SortingToolbarView(
-                selectedSortOption: .constant(.titleAscending),
-                isGridView: .constant(true),
-                onSortChange: { print("Sort changed") }
-            )
-            
-            // List view with author descending
-            SortingToolbarView(
-                selectedSortOption: .constant(.authorDescending),
-                isGridView: .constant(false),
-                onSortChange: { print("Sort changed") }
-            )
-        }
-        .padding()
-    }
-}

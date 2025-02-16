@@ -38,9 +38,26 @@ class BookDataController {
         }
     }
 
-    func addBook(title: String, author: String) {
+    func addBook(
+        title: String,
+        author: String,
+        bookDescription: String,
+        rating: Double,
+        isSaved: Bool = false,
+        genre: String,
+        totalPages: Int
+    ) {
         guard let modelContext = modelContext, !title.isEmpty else { return }
-        let newBook = Book(title: title, author: author)
+        let newBook = Book(
+            title: title,
+            author: author,
+            bookDescription: bookDescription,
+            rating: rating,
+            isSaved: isSaved,
+            genre: genre,
+            totalPages: totalPages,
+            pagesRead: 0
+        )
         modelContext.insert(newBook)
         saveContext()
     }

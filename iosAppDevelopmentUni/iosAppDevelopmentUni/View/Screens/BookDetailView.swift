@@ -24,5 +24,5 @@ struct BookDetailView: View {
 }
 
 #Preview {
-    BookDetailView(book: .init(title: "Test", author: "Test"))
+    BookDetailView(book: sampleBooks[1])
 }
