@@ -80,6 +80,12 @@ struct SortingToolbarView: View {
             isGridView: .constant(false),
             onSortChange: {}
         )
+        
+        SortingToolbarView(
+            selectedSortOption: .constant(.progressAscending),
+            isGridView: .constant(true),
+            onSortChange: {}
+        )
     }
     .padding()
     .background(Color.black)

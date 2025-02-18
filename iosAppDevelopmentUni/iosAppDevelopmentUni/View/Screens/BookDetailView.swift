@@ -46,9 +46,11 @@ struct BookDetailView: View {
                                 .font(.system(size: 18))
                                 .foregroundColor(.gray)
                                 
-                            Text("Genre: \(controller.book.genre)")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
+                            if !controller.book.genre.isEmpty {
+                                Text("Genre: \(controller.book.genre)")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
                                 
                             Text("Added: \(controller.book.dateAdded.formatted(date: .abbreviated, time: .omitted))")
                                 .font(.subheadline)
@@ -62,6 +64,20 @@ struct BookDetailView: View {
                     VStack(alignment: .leading, spacing: 16) {
                         Text("Reading Progress")
                             .font(.headline)
+                        
+                        NavigationLink(destination: ReadingView(book: controller.book)) {
+                            HStack {
+                                Image(systemName: "book.pages")
+                                Text("Continue Reading")
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                            }
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                        }
+                        .padding(.vertical, 8)
                         
                         Slider(value: $controller.readingProgress, in: 0...100, step: 1)
                             .tint(.blue)
@@ -77,7 +93,7 @@ struct BookDetailView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Toggle("Mark as Read", isOn: $controller.isRead)
                                 .tint(.green)
-                                .onChange(of: controller.isRead) { newValue in
+                                .onChange(of: controller.isRead) { oldValue, newValue in
                                     controller.handleMarkAsRead(newValue: newValue)
                                 }
                             

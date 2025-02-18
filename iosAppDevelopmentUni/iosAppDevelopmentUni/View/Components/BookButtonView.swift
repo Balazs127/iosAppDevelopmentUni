@@ -13,6 +13,7 @@ struct BookButtonView: View {
     var onDelete: () -> Void
     @Environment(\.horizontalSizeClass) var sizeClass
     var isGridView: Bool
+    @State private var showingDeleteAlert = false
 
     var body: some View {
         Group {
@@ -25,6 +26,22 @@ struct BookButtonView: View {
         .frame(maxWidth: .infinity)
         .background(Color.gray.opacity(0.15))
         .cornerRadius(16)
+        .contextMenu {
+            Button(action: onEdit) {
+                Label("Edit", systemImage: "pencil")
+            }
+            Button(role: .destructive) {
+                showingDeleteAlert = true
+            } label: {
+                Label("Delete", systemImage: "trash")
+            }
+        }
+        .alert("Delete Book", isPresented: $showingDeleteAlert) {
+            Button("Delete", role: .destructive, action: onDelete)
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Are you sure you want to delete this book?")
+        }
     }
     
     private var gridLayout: some View {
@@ -95,7 +112,9 @@ struct BookButtonView: View {
             Button(action: onEdit) {
                 Label("Edit", systemImage: "pencil")
             }
-            Button(role: .destructive, action: onDelete) {
+            Button(role: .destructive, action: {
+                showingDeleteAlert = true
+            }) {
                 Label("Delete", systemImage: "trash")
             }
         } label: {

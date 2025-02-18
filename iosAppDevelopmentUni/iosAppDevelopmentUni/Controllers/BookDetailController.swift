@@ -17,30 +17,41 @@ class BookDetailController: ObservableObject {
     
     init(book: Book) {
         self.book = book
-        self.readingProgress = Double(book.pagesRead) / Double(book.totalPages) * 100
-        self.isRead = book.pagesRead == book.totalPages
         self.bookNotes = book.userReview
-        self.rating = Int(book.rating)
-        self.previousProgress = Double(book.pagesRead) / Double(book.totalPages) * 100
+        self.rating = Int(max(0, min(5, book.rating)))
+        
+        // Calculate initial values before assigning to properties
+        let totalPages = max(1, book.totalPages)
+        let pagesRead = max(0, min(book.pagesRead, totalPages))
+        let progress = book.getProgressPercentage()
+        
+        self.readingProgress = progress
+        self.previousProgress = progress
+        self.isRead = pagesRead == totalPages
     }
     
     func updateBookProgress() {
-        let newPagesRead = Int((readingProgress / 100) * Double(book.totalPages))
-        book.pagesRead = newPagesRead
+        let totalPages = max(1, book.totalPages)
+        let newPagesRead = Int((readingProgress / 100) * Double(totalPages))
+        book.pagesRead = max(0, min(newPagesRead, totalPages))
         BookDataController.shared.saveContext()
     }
     
     func updateBookReview() {
         book.userReview = bookNotes
-        book.rating = Double(rating)
+        book.rating = Double(min(5, max(0, rating)))
         BookDataController.shared.saveContext()
     }
     
     func refreshViewState() {
-        readingProgress = Double(book.pagesRead) / Double(book.totalPages) * 100
-        isRead = book.pagesRead == book.totalPages
         bookNotes = book.userReview
-        rating = Int(book.rating)
+        rating = Int(max(0, min(5, book.rating)))
+        
+        let totalPages = max(1, book.totalPages)
+        let pagesRead = max(0, min(book.pagesRead, totalPages))
+        
+        readingProgress = book.getProgressPercentage()
+        isRead = pagesRead == totalPages
     }
     
     func handleMarkAsRead(newValue: Bool) {

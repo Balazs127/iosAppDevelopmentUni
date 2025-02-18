@@ -22,7 +22,7 @@ class Book {
     var id: UUID
     var title: String = ""
     var author: String = ""
-    var bookDescription: String
+    var bookDescription: String = ""
     var rating: Double
     var isSaved: Bool
     var genre: String
@@ -45,19 +45,7 @@ class Book {
         self.userReview = userReview
     }
     
-//    func toggleSaved() {
-//        isSaved.toggle()
-//    }
-//    
-//    func updateProgress(pagesRead: Int) {
-//        self.pagesRead = min(max(0, pagesRead), totalPages)
-//    }
-//    
-//    func getProgressPercentage() -> Double {
-//        return Double(pagesRead) / Double(totalPages) * 100
-//    }
-//    
-//    func getRemainingPages() -> Int {
-//        return totalPages - pagesRead
-//    }
+    func getProgressPercentage() -> Double {
+        return Double(pagesRead) / Double(totalPages) * 100
+    }
 }

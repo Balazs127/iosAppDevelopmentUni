@@ -33,7 +33,7 @@ struct LibraryView: View {
                     )
                     
                     SortingToolbarView(
-                        selectedSortOption: $controller.sortPresenter.selectedSortOption,
+                        selectedSortOption: $controller.sortController.selectedSortOption,
                         isGridView: $isGridView,
                         onSortChange: { controller.processBooks(from: allBooks) }
                     )

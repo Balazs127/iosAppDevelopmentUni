@@ -11,7 +11,7 @@ import SwiftData
 class LibraryController: ObservableObject {
     @Published var searchText: String = ""
     @Published var books: [Book] = []
-    @Published var sortPresenter = SortPresenter()
+    @Published var sortController = SortController()
     
     private let dataController = BookDataController.shared
     
@@ -25,7 +25,7 @@ class LibraryController: ObservableObject {
             }
         }
 
-        result = sortPresenter.sortBooks(books: result)
+        result = sortController.sortBooks(books: result)
 
         books = result
     }
