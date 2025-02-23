@@ -17,12 +17,12 @@ struct SignUpView: View {
                     .font(.title)
                     .fontWeight(.bold)
                 Text("Sign up to start tracking your books!")
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                     .padding()
                 
                     .navigationDestination(isPresented: $navigateToHome) {
-                        LibraryView()
+                        MainTabView()
                     }
                 
                 Button(action: {

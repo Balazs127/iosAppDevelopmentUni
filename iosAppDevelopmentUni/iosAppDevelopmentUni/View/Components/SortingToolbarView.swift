@@ -35,20 +35,20 @@ struct SortingToolbarView: View {
                 HStack(spacing: 10) {
                     Image(systemName: "line.3.horizontal.decrease.circle.fill")
                         .font(.title2)
-                        .foregroundStyle(.white)
+                        .foregroundColor(.white)
                     
                     VStack(alignment: .leading) {
                         Text("Sort by")
                             .font(.caption)
-                            .foregroundStyle(.gray)
+                            .foregroundColor(.white.opacity(0.8))
                         Text(selectedSortOption.rawValue)
                             .fontWeight(.medium)
-                            .foregroundStyle(.white)
+                            .foregroundColor(.white)
                     }
                 }
                 .frame(height: 52)
                 .padding(.horizontal, 10)
-                .background(Color.blue.opacity(0.2))
+                .background(Color.blue.opacity(0.8))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
             
@@ -59,7 +59,7 @@ struct SortingToolbarView: View {
                     .foregroundColor(.white)
                     .font(.title3) // Using font to adjust size
                     .frame(width: 52, height: 52)
-                    .background(Color.blue.opacity(0.2))
+                    .background(Color.accentColor.opacity(0.7))
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             }
         }
@@ -88,5 +88,4 @@ struct SortingToolbarView: View {
         )
     }
     .padding()
-    .background(Color.black)
 }

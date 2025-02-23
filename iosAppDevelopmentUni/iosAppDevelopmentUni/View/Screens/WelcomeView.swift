@@ -25,13 +25,13 @@ struct WelcomeView: View {
                     .font(.title)
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .padding(.top, -60)
                     .padding(.horizontal, 20)
                 
                 Text("Manage your book collection with ease. Track your reading progress.")
                     .font(.body)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                     .padding(.top, -40)
                     .padding(.horizontal, 20)
@@ -52,7 +52,7 @@ struct WelcomeView: View {
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.gray.opacity(0.5))
+                        .background(Color.accentColor)
                         .cornerRadius(10)
                 }
                 .padding(.horizontal, 40)
@@ -61,17 +61,17 @@ struct WelcomeView: View {
                     navigateToHome = true
                 }) {
                     Text("Skip Intro")
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                 }
                 
                 HStack {
                     Text("New user? Register now.")
-                        .foregroundColor(.gray)
+                        .foregroundColor(.secondary)
                     Button(action: {
                         showSignUp = true
                     }) {
                         Text("Sign Up")
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .bold()
                     }
                 }
@@ -81,7 +81,8 @@ struct WelcomeView: View {
                     SignUpView()
                 }
             }
-            .background(Color.black.edgesIgnoringSafeArea(.all))
+            .background(Color(uiColor: .systemBackground))
+
         }
     }
 }

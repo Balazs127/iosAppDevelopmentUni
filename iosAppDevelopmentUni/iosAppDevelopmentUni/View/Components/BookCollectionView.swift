@@ -36,7 +36,6 @@ struct BookCollectionView: View {
                 }
             }
         }
-        .padding(.bottom, 5)
     }
     
     private func bookLink(for book: Book, isGridView: Bool) -> some View {
@@ -69,6 +68,5 @@ struct BookCollectionView: View {
             )
         }
         .navigationTitle("Books")
-        .preferredColorScheme(.dark)
     }
 }

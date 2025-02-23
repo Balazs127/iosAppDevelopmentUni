@@ -25,6 +25,7 @@ struct LabeledField: View {
         VStack(alignment: .leading, spacing: 12) {
             Text("\(label)\(isRequired ? "*" : "")")
                 .foregroundColor(.secondary)
+                .fontWeight(.semibold)
             TextField(placeholder, text: $text, axis: axis ?? .horizontal)
                 .focused($focus, equals: field)
                 .padding(.vertical, 8)

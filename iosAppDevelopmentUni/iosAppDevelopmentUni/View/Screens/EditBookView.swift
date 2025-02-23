@@ -117,8 +117,8 @@ struct EditBookView: View {
                     .listRowSeparator(.hidden)
                 }
             }
+            .background(Color(uiColor: .systemGroupedBackground))
             .navigationTitle("Edit Book")
-            .padding(.top, 8)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }

@@ -11,9 +11,8 @@ struct FavoritesView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.black.ignoresSafeArea()
                 Text("Favorites")
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
             }
             .navigationTitle("Favorites")
         }

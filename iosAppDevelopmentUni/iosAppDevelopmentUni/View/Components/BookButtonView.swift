@@ -24,7 +24,7 @@ struct BookButtonView: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .background(Color.gray.opacity(0.15))
+        .background(Color(uiColor: .secondarySystemBackground))
         .cornerRadius(16)
         .contextMenu {
             Button(action: onEdit) {
@@ -51,7 +51,7 @@ struct BookButtonView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 60, height: 60)
-                    .foregroundColor(.blue.opacity(0.9))
+                    .foregroundColor(Color.accentColor.opacity(0.9))
                     .padding(10)
                 
                 Spacer(minLength: 0)
@@ -65,12 +65,12 @@ struct BookButtonView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text(book.title)
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .lineLimit(2)
                 
                 Text(book.author)
                     .font(.subheadline)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
                     .lineLimit(1)
             }
             .padding(.horizontal, 15)
@@ -84,18 +84,18 @@ struct BookButtonView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 40, height: 40)
-                .foregroundColor(.blue.opacity(0.9))
+                .foregroundColor(Color.accentColor.opacity(0.9))
                 .padding(10)
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(book.title)
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .lineLimit(2)
                 
                 Text(book.author)
                     .font(.subheadline)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
                     .lineLimit(1)
             }
             .padding(.vertical, 10)
@@ -119,7 +119,7 @@ struct BookButtonView: View {
             }
         } label: {
             Image(systemName: "ellipsis")
-                .foregroundColor(.gray)
+                .foregroundColor(.secondary)
                 .frame(width: 40, height: 40)
                 .contentShape(Rectangle())
         }
@@ -128,7 +128,6 @@ struct BookButtonView: View {
 
 #Preview("Book Button Layouts") {
     ZStack {
-        Color.black.edgesIgnoringSafeArea(.all)
         VStack(spacing: 20) {
             // Grid Layout
             BookButtonView(

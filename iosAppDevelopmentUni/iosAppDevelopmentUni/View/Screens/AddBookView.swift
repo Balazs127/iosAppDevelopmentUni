@@ -81,8 +81,8 @@ struct AddBookView: View {
                 .padding(.vertical, 8)
                 .listRowSeparator(.hidden)
             }
+            .background(Color(uiColor: .systemGroupedBackground))
             .navigationTitle("Add New Book")
-            .padding(.top, 8)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }

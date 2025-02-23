@@ -23,8 +23,6 @@ struct LibraryView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.black.ignoresSafeArea()
-
                 VStack(spacing: 20) {
                     LibraryHeaderView(
                         isSearchActive: $isSearchActive,

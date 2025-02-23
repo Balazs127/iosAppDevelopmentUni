@@ -35,7 +35,7 @@ struct BookDetailView: View {
                                 .foregroundColor(.blue)
                         }
                         .frame(width: 130, height: 130)
-                        .background(Color.gray.opacity(0.1))
+                        .background(Color(uiColor: .secondarySystemBackground))
                         .cornerRadius(12)
                         
                         VStack(alignment: .leading, spacing: 12) {
@@ -146,10 +146,10 @@ struct BookDetailView: View {
             }
             
             VStack {
-                Divider()
                 HStack(spacing: 20) {
                     Button(action: { showingEditSheet = true }) {
                         Label("Edit", systemImage: "pencil")
+                            .fontWeight(.semibold)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 8)
                     }
@@ -157,6 +157,7 @@ struct BookDetailView: View {
                     
                     Button(action: { showingDeleteAlert = true }) {
                         Label("Delete", systemImage: "trash")
+                            .fontWeight(.semibold)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 8)
                     }
@@ -164,13 +165,13 @@ struct BookDetailView: View {
                     .tint(.red)
                 }
                 .padding(.horizontal)
-                .padding(.vertical, 8)
-                .background(Color.black.opacity(0.95))
+                .padding(.vertical, 12)
+                .background(Color.gray.opacity(0.1))
             }
             .opacity(focusedField == .description ? 0 : 1)
             .animation(.easeInOut(duration: 0.2), value: focusedField)
         }
-        .background(Color.black)
+        .background(Color(uiColor: .systemBackground))
         .animation(.easeOut(duration: 0.2), value: focusedField)
         .alert("Delete Book", isPresented: $showingDeleteAlert) {
             Button("Delete", role: .destructive) {

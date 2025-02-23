@@ -14,20 +14,20 @@ struct SearchBarView: View {
     var body: some View {
         HStack(spacing: 8) {
             Image(systemName: "magnifyingglass")
-                .foregroundColor(.gray)
+                .foregroundColor(.secondary)
                 .font(.system(size: 17, weight: .medium))
             
             TextField("Search books...", text: $text)
                 .focused($isFocused)
                 .font(.system(size: 17))
-                .foregroundColor(.white)
-                .accentColor(.blue)
+                .foregroundColor(.primary)
+                .accentColor(Color.accentColor)
                 .textFieldStyle(.plain)
                 .submitLabel(.search)
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(Color.white.opacity(0.1))
+        .background(Color.primary.opacity(0.1))
         .cornerRadius(10)
         .ignoresSafeArea(.keyboard, edges: .bottom)
     }
@@ -39,5 +39,4 @@ struct SearchBarView: View {
         SearchBarView(text: .constant("Harry Potter"))
     }
     .padding()
-    .background(Color.black)
 }

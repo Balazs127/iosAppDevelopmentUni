@@ -33,7 +33,6 @@ struct MainTabView: View {
            }
            .frame(maxWidth: .infinity, maxHeight: .infinity)
            .padding(.bottom, keyboardIsVisible ? 0 : 60)
-           .background(Color.black.ignoresSafeArea())
            .navigationBarBackButtonHidden(true)
 
            if !keyboardIsVisible {

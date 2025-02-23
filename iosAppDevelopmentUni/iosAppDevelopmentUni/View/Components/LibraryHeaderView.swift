@@ -19,7 +19,7 @@ struct LibraryHeaderView: View {
                 Text("Library")
                     .font(.title2)
                     .bold()
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .transition(.move(edge: .leading).combined(with: .opacity))
             }
             
@@ -42,7 +42,7 @@ struct LibraryHeaderView: View {
                 }) {
                     Image(systemName: "magnifyingglass")
                         .font(.title2)
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                         .frame(width: 44, height: 44)
                         .contentShape(Rectangle())
                 }
@@ -60,7 +60,7 @@ struct LibraryHeaderView: View {
                             onSearchChange()
                         }
                     }
-                    .foregroundColor(Color.blue.opacity(0.8))
+                    .foregroundColor(Color.accentColor.opacity(0.8))
                     .transition(.move(edge: .trailing).combined(with: .opacity))
                 }
             }
@@ -73,7 +73,7 @@ struct ProfileButton: View {
     var body: some View {
         ZStack {
             Circle()
-                .fill(Color.blue.opacity(0.2))
+                .fill(Color.accentColor.opacity(0.8))
                 .frame(width: 40, height: 40)
             
             Text("BK")
@@ -98,5 +98,4 @@ struct ProfileButton: View {
         )
     }
     .padding()
-    .background(Color.black)
 }
