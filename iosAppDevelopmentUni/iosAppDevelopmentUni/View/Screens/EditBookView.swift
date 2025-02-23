@@ -74,6 +74,7 @@ struct EditBookView: View {
                     label: "Total Pages",
                     placeholder: "Enter number of pages",
                     text: $totalPages,
+                    isRequired: true,
                     keyboardType: .numberPad,
                     focus: $focusedField,
                     field: .pages
@@ -127,9 +128,9 @@ struct EditBookView: View {
                         saveChanges()
                         dismiss()
                     }
-                    .disabled(title.isEmpty)
-                    .foregroundColor(title.isEmpty ? .gray : .blue)
-                    .opacity(title.isEmpty ? 0.5 : 1.0)
+                    .disabled(title.isEmpty || totalPages.isEmpty || totalPages == "0")
+                    .foregroundColor((title.isEmpty || totalPages.isEmpty || totalPages == "0") ? .gray : .blue)
+                    .opacity((title.isEmpty || totalPages.isEmpty || totalPages == "0") ? 0.5 : 1.0)
                     .animation(.easeInOut, value: title.isEmpty)
                 }
             }

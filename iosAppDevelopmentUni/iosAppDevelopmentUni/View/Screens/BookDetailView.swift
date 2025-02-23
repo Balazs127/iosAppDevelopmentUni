@@ -65,7 +65,9 @@ struct BookDetailView: View {
                         Text("Reading Progress")
                             .font(.headline)
                         
-                        NavigationLink(destination: ReadingView(book: controller.book)) {
+                        NavigationLink(destination: ReadingView(book: controller.book, onDismiss: {
+                            controller.refreshViewState()
+                        })) {
                             HStack {
                                 Image(systemName: "book.pages")
                                 Text("Continue Reading")
@@ -87,7 +89,7 @@ struct BookDetailView: View {
                                 controller.isRead = controller.readingProgress == 100
                             }
                         
-                        Text("\(Int(controller.readingProgress))% Complete")
+                        Text(String(format: "%.0f%% Complete", controller.readingProgress))
                             .foregroundColor(.secondary)
                         
                         VStack(alignment: .leading, spacing: 8) {

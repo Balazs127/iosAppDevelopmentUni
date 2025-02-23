@@ -5,16 +5,27 @@ struct ReadingView: View {
     let book: Book
     @State private var currentPage: Int
     @State private var dragOffset = CGSize.zero
-    
-    init(book: Book) {
+    private let dataController = BookDataController.shared
+    @Environment(\.dismiss) private var dismiss
+    var onDismiss: (() -> Void)?
+
+    init(book: Book, onDismiss: (() -> Void)? = nil) {
         self.book = book
-        _currentPage = State(initialValue: Int(book.pagesRead))
+        self.onDismiss = onDismiss
+        _currentPage = State(initialValue: max(1, min(book.pagesRead, book.totalPages)))
+    }
+    
+    private func updateBookProgress() {
+        book.pagesRead = currentPage
+        dataController.saveContext()
+        onDismiss?()
     }
     
     var body: some View {
         VStack {
             HStack {
                 Button(action: {
+                    updateBookProgress()
                     presentationMode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "xmark")
@@ -73,6 +84,10 @@ struct ReadingView: View {
                 )
             
             Spacer()
+
+            Text("\(Int(book.getProgressPercentage()))% Complete")
+                    .font(.caption)
+                    .foregroundColor(.gray)
             
             Text("Swipe left or right to turn pages")
                 .font(.caption)
@@ -80,6 +95,9 @@ struct ReadingView: View {
                 .padding(.bottom)
         }
         .navigationBarHidden(true)
+        .onDisappear {
+            updateBookProgress()
+        }
     }
 }
 
