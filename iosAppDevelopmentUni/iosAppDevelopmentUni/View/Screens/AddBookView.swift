@@ -15,7 +15,7 @@ struct AddBookView: View {
     @State private var bookDescription: String = ""
     @State private var rating: Double = 3.0
     @State private var totalPages: String = ""
-    @State private var selectedGenre: BookGenre = .unknown
+    @State private var selectedGenre: BookGenre = .nonFiction
     
     private let dataController = BookDataController.shared
     @FocusState private var focusedField: Field?
@@ -41,7 +41,7 @@ struct AddBookView: View {
                 )
                 
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("Genre*")
+                    Text("Genre")
                         .foregroundColor(Color.secondary)
                         .fontWeight(.semibold)
                     Picker("Select a genre", selection: $selectedGenre) {
@@ -109,9 +109,9 @@ struct AddBookView: View {
                         saveBook()
                         dismiss()
                     }
-                    .disabled(selectedGenre.rawValue == "Unknown" || title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0)
-                    .foregroundColor((selectedGenre.rawValue == "Unknown" || title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0) ? .gray : .blue)
-                    .opacity((selectedGenre.rawValue == "Unknown" || title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0) ? 0.5 : 1.0)
+                    .disabled(title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0)
+                    .foregroundColor((title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0) ? .gray : .blue)
+                    .opacity((title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0) ? 0.5 : 1.0)
                     .animation(.easeInOut, value: title.isEmpty)
                 }
             }

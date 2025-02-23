@@ -15,7 +15,6 @@
 //
 
 enum BookGenre: String, CaseIterable {
-    case unknown = "Unknown"
     case fantasy = "Fantasy"
     case scienceFiction = "Science Fiction"
     case mystery = "Mystery"

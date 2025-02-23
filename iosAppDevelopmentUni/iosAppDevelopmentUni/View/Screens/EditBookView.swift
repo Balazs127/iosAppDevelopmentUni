@@ -28,7 +28,7 @@ struct EditBookView: View {
         _author = State(initialValue: book.author)
         _bookDescription = State(initialValue: book.bookDescription)
         _rating = State(initialValue: book.rating)
-        _selectedGenre = State(initialValue: BookGenre.allCases.first(where: { $0.rawValue == book.genre }) ?? .unknown)
+        _selectedGenre = State(initialValue: BookGenre(rawValue: book.genre) ?? .fantasy)
         _totalPages = State(initialValue: String(book.totalPages))
         _pagesRead = State(initialValue: String(book.pagesRead))
     }
@@ -54,7 +54,7 @@ struct EditBookView: View {
                 )
                 
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("Genre*")
+                    Text("Genre")
                         .foregroundColor(Color.secondary)
                         .fontWeight(.semibold)
                     Picker("Select a genre", selection: $selectedGenre) {
@@ -145,9 +145,9 @@ struct EditBookView: View {
                         saveChanges()
                         dismiss()
                     }
-                    .disabled(selectedGenre.rawValue == "Unknown" || title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0)
-                    .foregroundColor((selectedGenre.rawValue == "Unknown" || title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0) ? .gray : .blue)
-                    .opacity((selectedGenre.rawValue == "Unknown" || title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0) ? 0.5 : 1.0)
+                    .disabled(title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0)
+                    .foregroundColor((title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0) ? .gray : .blue)
+                    .opacity((title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0) ? 0.5 : 1.0)
                     .animation(.easeInOut, value: title.isEmpty)
                 }
             }
@@ -172,7 +172,6 @@ struct EditBookView: View {
     }
 }
 
-#Preview {
-    EditBookView(book: sampleBooks[1])
-}
-
+ #Preview {
+     EditBookView(book: sampleBooks[0])
+ }

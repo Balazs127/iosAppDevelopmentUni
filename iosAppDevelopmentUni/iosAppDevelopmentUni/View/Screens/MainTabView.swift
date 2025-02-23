@@ -57,7 +57,7 @@ struct MainTabView: View {
            RoundedRectangle(cornerRadius: 20)
                .fill(Color(.systemGray6).opacity(0.9))
                .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: -4)
-               .frame(height: 90)
+               .frame(height: 95)
                .overlay(
                    HStack {
                        navItem(icon: "house.fill", label: "Home", tab: .home)

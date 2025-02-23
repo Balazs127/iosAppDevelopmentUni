@@ -85,7 +85,7 @@ struct ReadingView: View {
             
             Spacer()
 
-            Text("\(Int(book.getProgressPercentage()))% Complete")
+            Text("\(Int((Double(currentPage) / Double(book.totalPages)) * 100))% Complete")
                     .font(.caption)
                     .foregroundColor(.gray)
             

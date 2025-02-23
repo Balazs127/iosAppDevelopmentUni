@@ -13,7 +13,7 @@ struct ProfileView: View {
         NavigationStack {
             ZStack {
                 Text("Profile")
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
             }
             .navigationTitle("Profile")
         }

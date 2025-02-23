@@ -25,7 +25,7 @@ class LibraryController: ObservableObject {
             }
         }
 
-        result = sortController.sortBooks(books: result)
+        result = sortController.processBooks(result)
 
         books = result
     }

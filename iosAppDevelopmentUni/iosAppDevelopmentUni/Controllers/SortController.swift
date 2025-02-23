@@ -44,6 +44,17 @@ enum SortOption: CaseIterable, Identifiable {
 
 class SortController: ObservableObject {
     @Published var selectedSortOption: SortOption = .titleAscending
+    @Published var selectedGenres: [BookGenre] = []
+
+    func processBooks(_ books: [Book]) -> [Book] {
+        let sorted = sortBooks(books: books)
+        guard !selectedGenres.isEmpty else { return sorted }
+        return sorted.filter { book in
+            selectedGenres.contains { genre in
+                book.genre == genre.rawValue
+            }
+        }
+    }
 
     func sortBooks(books: [Book]) -> [Book] {
         

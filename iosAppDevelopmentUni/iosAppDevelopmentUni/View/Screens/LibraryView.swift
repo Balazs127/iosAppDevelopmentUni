@@ -19,7 +19,7 @@ struct LibraryView: View {
     @State private var isSearchActive = false
     @State private var editingBook: Book? = nil
     @State private var isGridView = true
-    
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -32,6 +32,7 @@ struct LibraryView: View {
                     
                     SortingToolbarView(
                         selectedSortOption: $controller.sortController.selectedSortOption,
+                        selectedGenres: $controller.sortController.selectedGenres,
                         isGridView: $isGridView,
                         onSortChange: { controller.processBooks(from: allBooks) }
                     )

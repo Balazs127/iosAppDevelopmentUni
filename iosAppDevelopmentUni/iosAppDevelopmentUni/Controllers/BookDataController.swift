@@ -17,6 +17,19 @@ class BookDataController {
 
     func setModelContext(_ context: ModelContext) {
         self.modelContext = context
+        initializeWithSampleBooksIfEmpty()
+    }
+
+    func initializeWithSampleBooksIfEmpty() {
+        guard let modelContext = modelContext else { return }
+        
+        let books = fetchBooks()
+        if books.isEmpty {
+            sampleBooks.forEach { book in
+                modelContext.insert(book)
+            }
+            saveContext()
+        }
     }
 
     func fetchBooks() -> [Book] {
