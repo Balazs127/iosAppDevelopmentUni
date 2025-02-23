@@ -14,7 +14,7 @@ struct EditBookView: View {
     @State private var author: String
     @State private var bookDescription: String
     @State private var rating: Double
-    @State private var genre: String
+    @State private var selectedGenre: BookGenre
     @State private var totalPages: String
     @State private var pagesRead: String
     
@@ -28,7 +28,7 @@ struct EditBookView: View {
         _author = State(initialValue: book.author)
         _bookDescription = State(initialValue: book.bookDescription)
         _rating = State(initialValue: book.rating)
-        _genre = State(initialValue: book.genre)
+        _selectedGenre = State(initialValue: BookGenre.allCases.first(where: { $0.rawValue == book.genre }) ?? .unknown)
         _totalPages = State(initialValue: String(book.totalPages))
         _pagesRead = State(initialValue: String(book.pagesRead))
     }
@@ -53,13 +53,30 @@ struct EditBookView: View {
                     field: .author
                 )
                 
-                LabeledField(
-                    label: "Genre",
-                    placeholder: "Enter genre",
-                    text: $genre,
-                    focus: $focusedField,
-                    field: .genre
-                )
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Genre*")
+                        .foregroundColor(Color.secondary)
+                        .fontWeight(.semibold)
+                    Picker("Select a genre", selection: $selectedGenre) {
+                        ForEach(BookGenre.allCases, id: \.self) { item in
+                            Text(item.rawValue).tag(item)
+                        }
+                    }
+                    .foregroundColor(.secondary)
+                    .pickerStyle(.menu)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color(.systemBackground))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                            )
+                    )
+                }
+                .padding(.vertical, 4)
+                .listRowSeparator(.hidden)
                 
                 LabeledField(
                     label: "Description",
@@ -128,9 +145,9 @@ struct EditBookView: View {
                         saveChanges()
                         dismiss()
                     }
-                    .disabled(title.isEmpty || totalPages.isEmpty || totalPages == "0")
-                    .foregroundColor((title.isEmpty || totalPages.isEmpty || totalPages == "0") ? .gray : .blue)
-                    .opacity((title.isEmpty || totalPages.isEmpty || totalPages == "0") ? 0.5 : 1.0)
+                    .disabled(selectedGenre.rawValue == "Unknown" || title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0)
+                    .foregroundColor((selectedGenre.rawValue == "Unknown" || title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0) ? .gray : .blue)
+                    .opacity((selectedGenre.rawValue == "Unknown" || title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0) ? 0.5 : 1.0)
                     .animation(.easeInOut, value: title.isEmpty)
                 }
             }
@@ -146,7 +163,7 @@ struct EditBookView: View {
         book.author = author
         book.bookDescription = bookDescription
         book.rating = rating
-        book.genre = genre
+        book.genre = selectedGenre.rawValue
         book.totalPages = Int(totalPages) ?? 0
         book.pagesRead = Int(pagesRead) ?? 0
         

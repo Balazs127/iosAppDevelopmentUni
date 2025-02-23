@@ -14,8 +14,8 @@ struct AddBookView: View {
     @State private var author: String = ""
     @State private var bookDescription: String = ""
     @State private var rating: Double = 3.0
-    @State private var genre: String = ""
     @State private var totalPages: String = ""
+    @State private var selectedGenre: BookGenre = .unknown
     
     private let dataController = BookDataController.shared
     @FocusState private var focusedField: Field?
@@ -40,13 +40,30 @@ struct AddBookView: View {
                     field: .author
                 )
                 
-                LabeledField(
-                    label: "Genre",
-                    placeholder: "Enter genre",
-                    text: $genre,
-                    focus: $focusedField,
-                    field: .genre
-                )
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Genre*")
+                        .foregroundColor(Color.secondary)
+                        .fontWeight(.semibold)
+                    Picker("Select a genre", selection: $selectedGenre) {
+                        ForEach(BookGenre.allCases, id: \.self) { item in
+                            Text(item.rawValue).tag(item)
+                        }
+                    }
+                    .foregroundColor(.secondary)
+                    .pickerStyle(.menu)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color(.systemBackground))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                            )
+                    )
+                }
+                .padding(.vertical, 4)
+                .listRowSeparator(.hidden)
                 
                 LabeledField(
                     label: "Description",
@@ -92,9 +109,9 @@ struct AddBookView: View {
                         saveBook()
                         dismiss()
                     }
-                    .disabled(title.isEmpty || totalPages.isEmpty || totalPages == "0")
-                    .foregroundColor((title.isEmpty || totalPages.isEmpty || totalPages == "0") ? .gray : .blue)
-                    .opacity((title.isEmpty || totalPages.isEmpty || totalPages == "0") ? 0.5 : 1.0)
+                    .disabled(selectedGenre.rawValue == "Unknown" || title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0)
+                    .foregroundColor((selectedGenre.rawValue == "Unknown" || title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0) ? .gray : .blue)
+                    .opacity((selectedGenre.rawValue == "Unknown" || title.isEmpty || totalPages.isEmpty || (Int(totalPages) ?? 0) == 0) ? 0.5 : 1.0)
                     .animation(.easeInOut, value: title.isEmpty)
                 }
             }
@@ -113,7 +130,7 @@ struct AddBookView: View {
             bookDescription: bookDescription,
             rating: rating,
             isSaved: true,
-            genre: genre,
+            genre: selectedGenre.rawValue,
             totalPages: pages
         )
         dismiss()

@@ -14,6 +14,18 @@
 //}
 //
 
+enum BookGenre: String, CaseIterable {
+    case unknown = "Unknown"
+    case fantasy = "Fantasy"
+    case scienceFiction = "Science Fiction"
+    case mystery = "Mystery"
+    case romance = "Romance"
+    case thriller = "Thriller"
+    case historicalFiction = "Historical Fiction"
+    case nonFiction = "Non-Fiction"
+    case contemporary = "Contemporary"
+}
+
 import SwiftUI
 import SwiftData
 

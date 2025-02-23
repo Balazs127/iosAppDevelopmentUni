@@ -13,7 +13,7 @@ let sampleBooks: [Book] = [
         author: "Aldous Huxley",
         bookDescription: "A dystopian novel about a futuristic World State and its citizens who are environmentally engineered into a intelligence-based social hierarchy.",
         rating: 4.5,
-        genre: "Science Fiction",
+        genre: BookGenre.scienceFiction.rawValue,
         totalPages: 311,
         pagesRead: 0,
         userReview: ""
@@ -23,7 +23,7 @@ let sampleBooks: [Book] = [
         author: "George Orwell",
         bookDescription: "A dystopian social science fiction novel following Winston Smith in a totalitarian state that maintains power through surveillance, manipulation, and control.",
         rating: 4.8,
-        genre: "Dystopian Fiction",
+        genre: BookGenre.scienceFiction.rawValue,
         totalPages: 328,
         pagesRead: 0,
         userReview: ""
@@ -33,7 +33,7 @@ let sampleBooks: [Book] = [
         author: "Ray Bradbury",
         bookDescription: "A dystopian novel about a future American society where books are outlawed and 'firemen' burn any that are found.",
         rating: 4.3,
-        genre: "Dystopian Fiction",
+        genre: BookGenre.scienceFiction.rawValue,
         totalPages: 256,
         pagesRead: 0,
         userReview: ""
@@ -43,7 +43,7 @@ let sampleBooks: [Book] = [
         author: "George Orwell",
         bookDescription: "An allegorical novella reflecting events leading up to the Russian Revolution and the Stalinist era of the Soviet Union.",
         rating: 4.6,
-        genre: "Political Satire",
+        genre: BookGenre.contemporary.rawValue,
         totalPages: 141,
         pagesRead: 0,
         userReview: ""
@@ -53,7 +53,7 @@ let sampleBooks: [Book] = [
         author: "F. Scott Fitzgerald",
         bookDescription: "A story of the fabulously wealthy Jay Gatsby and his love for the beautiful Daisy Buchanan, set against the backdrop of the Roaring Twenties.",
         rating: 4.4,
-        genre: "Literary Fiction",
+        genre: BookGenre.historicalFiction.rawValue,
         totalPages: 180,
         pagesRead: 0,
         userReview: ""
