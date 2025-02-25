@@ -81,18 +81,4 @@ class BookDataController {
         modelContext.delete(book)
         saveContext()
     }
-
-    func insertSampleBooks() {
-        guard let modelContext = modelContext else { return }
-
-        let books = fetchBooks()
-        guard books.isEmpty else { return }
-
-        let sampleBooks: [Book] = getSampleBooks()
-
-        for book in sampleBooks {
-            modelContext.insert(book)
-        }
-        saveContext()
-    }
 }
