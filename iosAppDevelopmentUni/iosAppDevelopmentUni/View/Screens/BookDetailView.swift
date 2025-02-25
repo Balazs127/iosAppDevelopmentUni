@@ -23,20 +23,14 @@ struct BookDetailView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     HStack(alignment: .top, spacing: 20) {
-                        AsyncImage(url: URL(string: "https://")) { image in // Placeholder if book image url is implemented
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        } placeholder: {
-                            Image(systemName: "book.closed.fill")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .padding(20)
-                                .foregroundColor(.blue)
-                        }
-                        .frame(width: 130, height: 130)
-                        .background(Color(uiColor: .secondarySystemBackground))
-                        .cornerRadius(12)
+                        Image(systemName: "book.closed.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(20)
+                            .foregroundColor(.blue)
+                            .frame(width: 130, height: 130)
+                            .background(Color(uiColor: .secondarySystemBackground))
+                            .cornerRadius(12)
                         
                         VStack(alignment: .leading, spacing: 12) {
                             Text(controller.book.title)
